@@ -1,0 +1,222 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>EulerPy by iKevinY</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">EulerPy</h1>
+        <p class="header">Python-based Project Euler command line tool.</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/iKevinY/EulerPy/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/iKevinY/EulerPy/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/iKevinY/EulerPy">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/iKevinY">iKevinY</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a name="eulerpy--" class="anchor" href="#eulerpy--"><span class="octicon octicon-link"></span></a>EulerPy <a href="https://travis-ci.org/iKevinY/EulerPy"><img src="http://img.shields.io/travis/iKevinY/EulerPy/master.svg?style=flat" alt="1" title="Build Status"></a> <a href="https://pypi.python.org/pypi/EulerPy/"><img src="http://img.shields.io/pypi/v/EulerPy.svg?style=flat" alt="3" title="PyPI Version"></a>
+</h1>
+
+<p>EulerPy is a command line tool designed to streamline the process of solving Project Euler problems using Python. The package focuses on two main tasks: firstly, to create Python "template" files with a docstring containing the text of a Project Euler problem for ease-of-reference, and secondly, to check whether a problem has been solved correctly.</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>EulerPy can be installed (and updated) from PyPI using <a href="http://www.pip-installer.org/en/latest/index.html">pip</a>:</p>
+
+<pre lang="sourceCode"><code>$ pip install --upgrade EulerPy
+</code></pre>
+
+<p>Conversely, it can be uninstalled using <a href="http://www.pip-installer.org/en/latest/index.html">pip</a> as well.</p>
+
+<pre lang="sourceCode"><code>$ pip uninstall EulerPy
+</code></pre>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>First, you'll want to <code>cd</code> to the directory where your Project Euler files are being stored.</p>
+
+<pre lang="sourceCode"><code>$ mkdir ~/project-euler
+$ cd ~/project-euler
+</code></pre>
+
+<p>At this point, you'll probably want to run the <code>euler</code> command, which will prompt to create <code>001.py</code>, a file containing the text to Project Euler problem #1 as its docstring.</p>
+
+<pre lang="sourceCode"><code>$ euler
+No Project Euler files found in the current directory.
+Generate file for problem #1? [Y/n]: Y
+Successfully created "001.py".
+
+$ cat 001.py
+"""
+Project Euler Problem #1
+=========================
+
+If we list all the natural numbers below 10 that are multiples of 3 or 5,
+we get 3, 5, 6 and 9. The sum of these multiples is 23.
+
+Find the sum of all the multiples of 3 or 5 below 1000.
+"""
+</code></pre>
+
+<p>At this point, you can open up your editor of choice and code up a solution to the problem, making sure to <code>print()</code> the output. Once you feel that you've solved the problem, run the <code>euler</code> command again to verify your solution is correct. If the answer is correct, the solution will be printed in green and the script will ask to generate the next problem file. If incorrect, the solution will be printed in red instead. Additionally, the time elapsed during the verification will also be printed.</p>
+
+<pre lang="sourceCode"><code>$ euler
+Checking "001.py" against solution: [no output] # (output in red)
+
+$ echo print 42 &gt;&gt; 001.py
+$ euler
+Checking "001.py" against solution: 42 # (output in green)
+Generate file for problem #2? [Y/n]: Y
+Successfully created "002.py".
+</code></pre>
+
+<p>EulerPy also comes with five options that act as commands. (The <code>--help</code> option can be used to display a summary of all of the options.)</p>
+
+<h3>
+<a name="--cheat---c" class="anchor" href="#--cheat---c"><span class="octicon octicon-link"></span></a><code>--cheat / -c</code>
+</h3>
+
+<p>The <code>--cheat</code> option will print the answer to a problem after prompting the user to ensure that they want to see it. If no problem argument is given, it will print the answer to the problem that they are currently working on.</p>
+
+<pre lang="sourceCode"><code>$ euler --cheat
+View answer to problem #2? [y/N]: Y
+The answer to problem #2 is &lt;redacted&gt;.
+
+$ euler --cheat 100
+View answer to problem #100? [y/N]: Y
+The answer to problem #100 is &lt;redacted&gt;.
+</code></pre>
+
+<h3>
+<a name="--generate---g" class="anchor" href="#--generate---g"><span class="octicon octicon-link"></span></a><code>--generate / -g</code>
+</h3>
+
+<p>The <code>--generate</code> option will create a Python file for the given problem number. If no problem number is given, it will overwrite the most recent problem with a file containing only the problem docstring (after prompting the user).</p>
+
+<pre lang="sourceCode"><code>$ euler --generate
+Generate file for problem #2? [Y/n]: Y
+"002.py" already exists. Overwrite? [y/N]:
+Successfully created "002.py".
+
+$ euler --generate 5
+Generate file for problem #5? [Y/n]: n
+Aborted!
+</code></pre>
+
+<p><code>euler &lt;problem&gt;</code> is equivalent to <code>euler --generate &lt;problem&gt;</code> if the file <strong>does not</strong> exist.</p>
+
+<pre lang="sourceCode"><code>$ cat 005.py
+cat: 005.py: No such file or directory
+
+$ euler 5
+Generate file for problem #5? [Y/n]: n
+Aborted!
+</code></pre>
+
+<h3>
+<a name="--preview---p" class="anchor" href="#--preview---p"><span class="octicon octicon-link"></span></a><code>--preview / -p</code>
+</h3>
+
+<p>The <code>--preview</code> option will print the text of a given problem to the terminal; if no problem number is given, it will print the current problem instead.</p>
+
+<pre lang="sourceCode"><code>$ euler --preview
+Project Euler Problem #2
+Each new term in the Fibonacci sequence is generated by adding the
+previous two terms. By starting with 1 and 2, the first 10 terms will be:
+
+                  1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...
+
+Find the sum of all the even-valued terms in the sequence which do not
+exceed four million.
+
+$ euler --preview 3
+Project Euler Problem #3
+The prime factors of 13195 are 5, 7, 13 and 29.
+
+What is the largest prime factor of the number 600851475143?
+</code></pre>
+
+<h3>
+<a name="--skip---s" class="anchor" href="#--skip---s"><span class="octicon octicon-link"></span></a><code>--skip / -s</code>
+</h3>
+
+<p>The <code>--skip</code> option will prompt the user to "skip" to the next problem.</p>
+
+<pre lang="sourceCode"><code>$ euler --skip
+Current problem is problem #2.
+Generate file for problem #3? [y/N]: Y
+Successfully created "003.py".
+</code></pre>
+
+<h3>
+<a name="--verify---v" class="anchor" href="#--verify---v"><span class="octicon octicon-link"></span></a><code>--verify / -v</code>
+</h3>
+
+<p>The <code>--verify</code> option will check whether a given problem file outputs the correct solution to the problem. If no problem number is given, it will check the current problem.</p>
+
+<pre lang="sourceCode"><code>$ euler --verify
+Checking "003.py" against solution: [no output] # (output in red)
+
+$ euler --verify 1
+Checking "001.py" against solution: &lt;redacted&gt; # (output in green)
+</code></pre>
+
+<p><code>euler &lt;problem&gt;</code> is equivalent to <code>euler --verify &lt;problem&gt;</code> if the file <strong>does</strong> exist.</p>
+
+<pre lang="sourceCode"><code>$ cat 001.py
+"""
+Project Euler Problem #1
+=========================
+...
+
+
+"""
+
+$ euler 1
+Checking "001.py" against solution: &lt;redacted&gt;
+</code></pre>
+
+<h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>See <a href="https://github.com/iKevinY/EulerPy/blob/master/CONTRIBUTING.rst">CONTRIBUTING.rst</a>.</p>
+
+<h2>
+<a name="miscellaneous" class="anchor" href="#miscellaneous"><span class="octicon octicon-link"></span></a>Miscellaneous</h2>
+
+<p>The text for problems 1 through 202 were derived from Kyle Keen's <a href="http://kmkeen.com/local-euler/">Local Euler</a> project, and the solutions in <a href="https://github.com/iKevinY/EulerPy/blob/master/EulerPy/solutions.txt">solutions.txt</a> were derived from the <a href="https://code.google.com/p/projecteuler-solutions/">projecteuler-solutions wiki</a>.</p>
+
+<p>See <a href="http://kevinyap.ca/2014/06/eulerpy-streamlining-project-euler/">this blog post</a> for insight into the development process.</p>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>EulerPy is licensed under the <a href="https://github.com/iKevinY/EulerPy/blob/master/LICENSE">MIT License</a>.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
